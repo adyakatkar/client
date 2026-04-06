@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { createClient } from "@supabase/supabase-js";
 
+// Initialize Supabase and point to the backend server
 const supabase = createClient("https://gsscduiqpoayadmpfbjc.supabase.co", "sb_publishable_wPW6xRQjonzKQg_p_Ty7Ng_1Yxtm2R-");
 const API_BASE_URL = "https://server-9w55.onrender.com";
 
@@ -18,27 +19,33 @@ function App() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [toast, setToast] = useState(null);
 
+  // Quick helper to pop up a notification and hide it after 3 seconds
   const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(null), 3000); };
 
+  // Check if someone is already logged in when the app starts up
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => { if (data.user) setUser(data.user); });
   }, []);
 
+  // Handle both account creation and login in one spot
   const handleAuth = async (e) => {
     e.preventDefault();
     const { data, error } = isSignUp ? await supabase.auth.signUp({ email, password }) : await supabase.auth.signInWithPassword({ email, password });
     if (error) showToast(error.message); else setUser(data.user);
   };
 
+  // Pull the latest news whenever the category changes or a user logs in
   useEffect(() => {
     if (user) axios.get(`${API_BASE_URL}/news?category=${category}`).then(res => setArticles(res.data.articles || []));
   }, [category, user]);
 
+  // Grab the user's personal reading list from the database
   const fetchSaved = async () => {
     if (user) axios.get(`${API_BASE_URL}/saved?userId=${user.id}`).then(res => setSaved(res.data));
   };
   useEffect(() => { if (user) fetchSaved(); }, [user]);
 
+  // Hit the backend to get an AI-generated summary for a specific article
   const getSummary = async (article, index) => {
     if (summarizingIdx !== null || article.summary) return;
     setSummarizingIdx(index);
@@ -49,6 +56,7 @@ function App() {
     } catch (err) { showToast("AI Timeout. Try again."); } finally { setSummarizingIdx(null); }
   };
 
+  // Push an article to the user's saved library
   const saveArticle = async (article) => {
     if (saved.some(s => s.url === article.url)) return showToast("Already in Library");
     try {
@@ -57,6 +65,7 @@ function App() {
     } catch (err) { showToast("Save Failed"); }
   };
 
+  // Remove an article from the library by its ID
   const deleteArticle = async (id) => {
     try {
       await axios.delete(`${API_BASE_URL}/delete/${id}`);
@@ -64,8 +73,10 @@ function App() {
     } catch (err) { showToast("Delete Failed"); }
   };
 
+  // Simple search filter to narrow down the current article list
   const filtered = articles.filter(a => a.title?.toLowerCase().includes(search.toLowerCase()));
 
+  // Show the login/signup screen if there's no active user
   if (!user) return (
     <div style={s.authPage}>
       <div style={s.authCard}>
@@ -159,6 +170,7 @@ function App() {
   );
 }
 
+// Styling object for the UI components
 const s = {
   dashboard: { display: 'flex', height: '100vh', background: '#0F172A', color: '#F8FAFC', fontFamily: "'Inter', sans-serif" },
   authPage: { height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#0F172A', fontFamily: "'Inter', sans-serif" },
