@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+NovaNews Backend
+This repository contains the Node.js and Express server for the NovaNews application. It handles news data retrieval from NewsAPI, AI summarization using the Gemini API, and database management via Supabase.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Prerequisites
+Node.js installed
 
-## Available Scripts
+npm (Node Package Manager)
 
-In the project directory, you can run:
+Local Setup
+Clone the repository to your local machine.
 
-### `npm start`
+Open a terminal in the server folder.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Install the required dependencies:
+npm install
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Configuration
+Create a file named .env in the root directory.
 
-### `npm test`
+Add the following environment variables (replace with actual keys):
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+NEWS_API_KEY=your_key
 
-### `npm run build`
+GEMINI_API_KEY=your_key
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+SUPABASE_URL=your_supabase_url
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+SUPABASE_KEY=your_supabase_anon_key
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Running the Server
+Start the server using the command:
+node server.js
 
-### `npm run eject`
+The backend will be accessible at http://localhost:5000.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. For the Frontend Repository (client/README.md)
+NovaNews Frontend
+This repository contains the React.js frontend for the NovaNews application. It provides an interface to browse news, search by category, and save articles with AI-generated summaries.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Prerequisites
+Node.js installed
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+npm (Node Package Manager)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The NovaNews Backend must be running on port 5000 for full functionality.
 
-## Learn More
+Local Setup
+Clone the repository to your local machine.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Open a terminal in the client folder.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Install the required dependencies:
+npm install
 
-### Code Splitting
+Connection Setup
+Open the file src/App.js.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Ensure the API_BASE_URL constant is set to http://localhost:5000 to communicate with the local backend.
 
-### Analyzing the Bundle Size
+Running the Application
+Start the development server:
+npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The application will open automatically in your browser at http://localhost:3000.
