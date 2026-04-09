@@ -4,8 +4,8 @@ import { createClient } from "@supabase/supabase-js";
 
 // Initialize Supabase and point to the backend server
 const supabase = createClient("https://gsscduiqpoayadmpfbjc.supabase.co", "sb_publishable_wPW6xRQjonzKQg_p_Ty7Ng_1Yxtm2R-");
-//const API_BASE_URL = "https://server-9w55.onrender.com";
-const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = "https://nova-news-qm2u.onrender.com";
+//const API_BASE_URL = "http://localhost:5000";
 
 function App() {
   const [articles, setArticles] = useState([]);
